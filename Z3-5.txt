@@ -1,0 +1,12 @@
+30-Z3-5
+------------------------
+Nejdříve bych vytvořil pole začátků a konců intervalu a to tak, že k každému krajnímu bodu intervalu "bod" si ještě uložím číslo "lidi" -> 1 pokud je to začátek intervalu nebo -1 pokud je to konec intervalu. Do pole body vkládám postupně po intervalech (A1,B1,A2,B2,A3,...).
+Nyní mám pole bodů "bod " a číslo "lidi" udávající, jestli je to začátek nebo konec - časová složitost O(n).
+Poté toto nové vytvořené pole setřídím podle hodnot "bod" (tzn. podle hodnot čísel A...) - časová složitost O(n * log n)
+Ještě z pole odstraním duplikáty a to tak, že pokud najdu nějaké dva stejné "bod" tak sečtu jejich "lidi" - časová složitost O(n).
+Po této úpravě mám pole bodů "bod" a číslo "lidi", které udává změnu lidí v tento čas.
+Nakonec projdu pole a budu počítat "počet" tzn. počet lidí na shůzce. Toto vypočítám tak, že k "počet" přičtu "lidi" a vložím do "lidi" - časová složitost O(n).
+
+Najdu největší hodnotu čísla "lidi" a to je náš maximální počet vedoucích kteří se dostaví, můžeme zjistit index max čísla "lidi" (i), pomocí toho odpovídající hodnotu "bod" a máme čas začátku schůzky a konec schůzky je v hodnotě "bod" s indexem i+1.
+
+Paměťová složitost - ukládám jedno pole o maximální velikosti 2N.

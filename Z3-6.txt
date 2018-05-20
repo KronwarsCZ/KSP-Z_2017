@@ -1,0 +1,14 @@
+30-Z3-6
+-----------------
+Předpokládejme, že máme pro každého zaměstnance číslo "P"(počet vydělaných peněz), číslo nadřízeného a číslo "D".
+Vytvořím pole, kde každý záznam obsahuje "P" (výdělek zaměstnance) a seznam jeho podřízených. Kořen stromu bude generání ředitel a najdu ho tak, že nemá žádné nadřízené. Toto mi vytvoří strom.
+
+Strom budu procházet rekurzivně do hloubky:
+
+1. Zjistím kolik celkem vydělali všichni podřízení tohoto zaměstnance -> "vydelek". Následně přičtu "vydelek" k "P" tohoto zaměstnance. Pokud  tento zaměstnanec podřízené nemá tak se nic nestane.
+2. Zjistím, zda tento zaměstnanec může firmu okrást - pokud ano, zvětším "podvod" o 1 a do "P" (tohoto zaměstnance) uložím "P"-"D".
+3. Vrátím hodnotu "P".
+
+Po skončení rekurze mám v "podvod" číslo, které udává kolikrát zaměstnanci firmu okradli.
+Paměťová složitost - potřebuji si pamatovat pole/strom všech zaměstnanců, "podvod" a "vydelek"
+Časová složitost - O(N), kde N je počet zaměstnanců. 

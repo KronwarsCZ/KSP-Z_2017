@@ -1,0 +1,698 @@
+<html>
+    <meta charset="UTF-8">
+    <!-- source: https://www.html5rocks.com/en/tutorials/file/dndfiles/ -->
+    <!-- upravené pre http://kasiopea.matfyz.cz -->
+ <body>
+    <form>
+    <p>Zvolte úlohu, vyberte soubor a stiskněte Spusti</p><br>
+    <select name="Ulohy" id="ulohy">
+	 <option value="s1u1">S1U1 Kevinova nepatnactka</option>
+     <option value="s1u2">S1U2 Sariny loutky</option>
+     <option value="s1u3">S1U3 Petrovo lusteni zpravy</option>
+     <option value="s1u4">S1U4 Vedouci</option>
+     <option value="s2u1">S2U1 Koktavy Kevin</option>
+     <option value="s2u2">S2U2 Hriste pro tarantule</option>
+     <option value="s2u3">S2U3 Klonovani tarantuli</option>
+     <option value="s2u4">S2U4 Bily displej</option>
+     <option value="s3u1">S3U1 Produktivita</option>
+     <option value="s3u2">S3U2 Palindromy</option>
+     <option value="s3u3">S3U3 Týmbildink</option>
+     <option value="s3u4">S3U4 Postele</option>
+    </select>
+        <input type="file" id="files" name="file" /><br>
+        <input type="button" value="Spusti" onclick="spusti();" />
+    </form>
+
+    <script>
+
+var reader;
+reader = new FileReader();
+reader.onerror = function(e) { alert("Nastala chyba při čtení ze souboru.!"); };
+reader.onload = function(e) { stahniText(main(reader.result)); }
+
+function stahniText(text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', "out.in");
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+function spusti() {
+    reader.readAsText(document.getElementById('files').files[0]);
+};
+
+function gebid(id) {
+  return document.getElementById(id);
+};
+
+function main(vstup){
+  var uloha=document.getElementById('ulohy').value;
+ 
+  if (uloha == "s1u1") {
+	return s1u1(vstup);
+  };
+  if (uloha == "s1u2") {
+	return s1u2(vstup);
+  };
+if (uloha == "s1u3") {
+	return s1u3(vstup);
+    };
+if (uloha == "s1u4") {
+	return s1u4(vstup);
+    };
+if (uloha == "s2u1") {
+	return s2u1(vstup);
+    };
+if (uloha == "s2u2") {
+	return s2u2(vstup);
+    };
+if (uloha == "s2u3") {
+	return s2u3(vstup);
+    };
+if (uloha == "s2u4"){
+    return s2u4(vstup);
+    };
+if (uloha == "s3u2") {
+    return s3u2(vstup);
+    };
+if (uloha == "s3u1") {
+    return s3u1(vstup);
+    };
+if (uloha == "s3u4") {
+    return s3u4(vstup);
+    };
+if (uloha == "s3u3") {
+    return s3u3(vstup);
+    };
+};
+
+//rozdělí řetězec podle mezer a převede na pole čísel
+function splitParseInt(s) {
+	var i=0;
+	var cisla=[];
+	s=s.split(" ");
+	
+	for (i = 0; i < s.length; i++) {
+		cisla[i]=parseInt(s[i]);	
+	};
+	return cisla;
+};
+//rozdělí vstup na řádky
+function splitVstup(vstup) {
+    var r=vstup.split(/\r\n|\r|\n/g);
+    return r
+};
+function s1u1(vstup) {
+
+  	var r=vstup.split(/\r\n|\r|\n/g);
+	var rozmery=splitParseInt(r[0]);
+	var dira=splitParseInt(r[1]);
+	var opakovani=parseInt(r[2]);
+	var znaky=r[3];
+	var i=0;
+	var x=dira[0];
+	var y=dira[1];
+
+	for(i = 0; i < opakovani; i++){
+		if (znaky[i] == ">") {
+			if (y + 1 <= rozmery[1]) {y++};
+		} else if (znaky[i] == "<") {
+			if (y - 1 >= 1) {y--};
+		} else if (znaky[i] == "^") {
+			if (x - 1 >= 1) {x--}; 
+		} else if (znaky[i] == "v") {
+			if (x + 1 <= rozmery[0]) {x++};
+		} else alert("chybny znak v zadani");
+	};
+	return x.toString() + " " + y.toString();
+};
+function s1u2(vstup) {
+
+  	var r=vstup.split(/\r\n|\r|\n/g);
+	var r0=splitParseInt(r[0]);         // radek 0
+	var n=r0[0];                            //pocet hracek
+	var k=r0[1];                            //max vaha
+    var loutky=[];
+    var i=0;
+    var vysledek=0;
+    var konec=n - 1;                        //nejvyssi cislo bude na konci pole
+	var vypis="";
+
+    for(i = 1; i <= n; i++){
+        loutky[i-1]=parseInt(r[i]);
+    };
+    loutky.sort(function(a, b){return a-b});
+
+    for(i = 0; i < konec; konec--) {
+        vysledek++;
+        if (loutky[i] + loutky[konec] <= k) {
+            vypis+=vysledek.toString() + ":" + loutky[konec].toString() + " " + loutky[i].toString() + "<br>\n";
+            i++; 
+        } else {
+            vypis+=vysledek.toString() + ":" + loutky[konec].toString() + "<br>\n"; //
+        }; 
+    };
+	return vysledek;
+};
+function s1u3(vstup) {
+
+  	var r=vstup.split(/\r\n|\r|\n/g);    //vstup je nacteny ve var R
+    var r0=splitParseInt(r[0]);
+    var n=r0[0];                                        //pocet zprav
+    var znaky=r0[1];                                    //pocet znaku
+    var i=0;
+    var vysledek="";
+    var zpravy="";
+    var ap="";
+ 
+    var statistika={};        //statistika pismenek a jejich poctu vyskytu
+    var maxpocet,maxpismeno;                               
+
+    function najdiNejcastejsi(klic,index) {
+      if (maxpocet < this[klic]) { maxpismeno = klic; maxpocet = this[klic]; }
+    };
+
+
+    for(var p = 0; p < znaky; p++){ //pro vsechny znaky zpravy
+      statistika=[];
+      for(i = 1; i <= n; i++){
+        ap=r[i][p];
+        if (statistika[ap]+"" == "undefined") {statistika[ap]=0;};
+        statistika[ap]++;
+      };  
+
+      maxpocet=0; maxpismeno="";
+      Object.keys(statistika).forEach(najdiNejcastejsi,statistika);
+      vysledek += maxpismeno;
+    };
+  return vysledek;
+};
+function s1u4(vstup){
+    var r=vstup.split(/\r\n|\r|\n/g);
+    var r0=splitParseInt(r[0]);
+    var n=r0[0];
+    var d=r0[1];
+    var kamoseni=[];          //kdo je kamos s kym
+    var dotazy=[];            //dotazy na vudce
+    var j=0;
+    var sefove=[];            //sefove jednotilivych lidi
+    var sef=0;
+    var dotaz=0;
+    var poradnik=[];
+    var konecfronty=0;
+    var vysledky="";
+    var vypis="";
+    var novyporadnik=[];
+
+    for(var i = 1; i <= n; i++){                //OK
+        kamoseni[j]=splitParseInt(r[i]);
+        j++;
+    };
+    j = 0;
+    for(i = n+1; i < n+d+1; i++){               //OK
+        dotazy[j]=splitParseInt(r[i]);
+        j++
+    };
+    for (i = 0; i < d; i++) {                 //pro všechny dotazy
+            poradnik = [];
+            novyporadnik = [];
+            sefove = [];
+            sef = dotazy[i][0];
+            sefove[sef] = sef;
+            dotaz = dotazy[i][1];
+            poradnik[0] = sef;
+            //vypis+= "==========================\n";
+            //pro aktualni dotaz, vypocitam pro aktualniho sefa jeho pordrzene, kteri jeste nemaji sefa     
+            //pro sefa co je na rade zjistim jeho podrizeny(ktery jeste nemaji sefa) a pridelim jim sefa 
+            sef = -1;
+            for (y = 0; sef != dotaz ; y++) {
+                sef = poradnik[y];
+                //vypis += sef + ":";
+                podrizeni = 0;
+                if (poradnik.length == 0) {break};
+                
+                if( sef < 0 ||  sef > n-1 || kamoseni[sef] == undefined) {
+                    alert("Chyba")
+                    };
+
+                for (x = 0; x < kamoseni[sef].length; x++) {
+                    j = kamoseni[sef][x];
+                    if (sefove[j] + "" == "undefined") {
+                        sefove[j] = sef;
+                        vypis += j + " ";
+                        podrizeni++;
+                        novyporadnik[novyporadnik.length] = j;
+                    };
+                };
+                //vypis += "="+podrizeni+"\n";
+                if (y == poradnik.length-1) {
+                    poradnik=novyporadnik;
+                    poradnik.sort(function(a, b){return a-b});
+                    novyporadnik=[];
+                    y = -1;
+                }
+            };
+            vysledky += podrizeni + "\r\n";
+        };
+        return vysledky;
+};
+function s2u1(vstup){
+    var radky=vstup.split(/\r\n|\r|\n/g);
+    var rdelka=radky.length; //pocet radku na vstupu
+    var aktualniradek="";
+    var i=0;
+    var vystup="";
+    var pismeno=""; //aktualni pismeno
+    var radek=""
+    var predpismeno="";    
+    var pismena=""; //splitnuty radek na pismena
+    var pocetr=0;   //pocet znaku v radku
+
+     for(i = 0; i < rdelka - 1; i++){       //pro vsechny radky
+        radek=radky[i];
+        pismena = radek.split("");
+        predpismeno=pismena[0];
+        vystup += pismena[0];
+        hpocetr=radek.length;
+
+        for(j = 1; j < pocetr; j++){      //pro jeden radek, splitnu ho na jednotlive pismena a nastavim predchozi pismeno na prvni znak a dam ho do vystupu a aktualni na 2 misto 
+            pismeno=pismena[j];
+                      
+            if (pismeno == predpismeno) {};
+            if (pismeno !== predpismeno) {predpismeno = pismeno; vystup += pismeno;};
+                
+          };
+          vystup += "\n"
+      }; 
+    return vystup;
+    };
+
+function najitDuplikat(pole) {                      //najde duplikaty v poli
+    var objekt = {};
+    var vysl = false;
+
+    pole.forEach(function (polozka) {               //pro kazdou vec v poli, pokud neexistuje zaznam tak ho vytvor
+        if(!objekt[polozka]) {objekt[polozka] = 0;};
+        //objekt[polozka] += 1;                       //zvys pocet polozky o 1
+        if(++objekt[polozka] == 2) {vysl = true};
+        });
+
+//        for (var prop in objekt) {                  //vypis vsechny co maji vice jak 2 vyskyty
+//           if(objekt[prop] >= 2) {
+//               vysl = true;
+//           };
+//        };
+
+        return vysl;
+
+    };
+function s2u2(vstup) {
+    var r=vstup.split(/\r\n|\r|\n/g);
+    var r0=r[0].split(" ");     //prvni radek vstupu splitnuty
+    var n=parseInt(r0[1]);                          //pocet radku
+    var k=parseInt(r0[0]);                          //pocet pavouku a index kroku
+    var pole=[];
+    var radek="";
+    var konec=-1;
+    var duplikaty=false;
+    
+    for(i = 0; i < k; i++){             //pridelim pavoukum jejich startovni pozice
+        x = i;
+        y = i;
+        pole[i] = [];
+        pole[i][0]=x; 
+        pole[i][1]=y;
+    };
+    for(i = 1; i <= n; i++){         //pro vsechny radky
+        radek = r[i].split("");
+        
+        for(j = 0; j < k; j++){         //pro vsechny kroky
+            znak = radek[j];
+            if(znak == "^") {if(pole[j][0]-1 !== -1){pole[j][0]--;}} else
+            if(znak == "v") {if(pole[j][0]+1 !== k){pole[j][0]++;}} else
+            if(znak == "<") {if(pole[j][1]-1 !== -1){pole[j][1]--;}} else
+            if(znak == ">") {if(pole[j][1]+1 !== k){pole[j][1]++;}} else
+            if(znak == "o") {;} else
+            alert("Chyba na znaku");            
+        };
+        duplikaty = najitDuplikat(pole);
+        if(duplikaty == true) {return i};
+             
+    };
+    return konec;
+};
+
+
+function nactiPavouka(){
+    var pav = pavouci;
+    strom[pav] = [];   
+    znak=r[pointer++];
+    if (znak == "_") {                              
+        return -1; 
+    } else
+    if (znak == "(") {
+        pavouci++;                                
+        strom[pav][0] = "";
+        strom[pav][1] = nactiPavouka();
+        znak=r[pointer++];
+        strom[pav][0] = znak;                       
+        strom[pav][2] = nactiPavouka(); 
+        znak=r[pointer++];
+        if (znak != ")") {alert("Ocekavam zavorku, přišel "+znak); stop(); }
+} else
+    if (znak == ")") {                              
+        alert("ZAVORKA");
+    } else {
+        strom[pavouci][0]=znak;                    
+        strom[pavouci][1]=-1;
+        strom[pavouci][2]=-1;
+        pavouci++;
+    };
+ return pav;
+};
+var r;
+var pointer=0;                                                   //cislo znaku
+var pavouci=1;                                                  //Pavouk -1 -> nema potomky
+var strom=[];
+var znak="";
+var pavouk = 1;
+var zasobnik=[];
+var vysl = "";
+
+
+function vypisZasobnik(h) {
+    for (i=0;i<=h;i++) {vysl += zasobnik[i];};
+    vysl += "\n";
+};
+
+function potomciPavouka(pavouk, h){ 	                //h -> hloubka, pavouk -> akt. pavouka
+    if (pavouk == -1) {return -1;}
+
+    zasobnik[h] = strom[pavouk][0];
+
+    var pp;
+    pp=potomciPavouka(strom[pavouk][1], h+1);
+    pp+=potomciPavouka(strom[pavouk][2], h+1);
+
+    if (pp == -2) {vypisZasobnik(h); };
+    return 0;
+};
+
+var vystup = "";
+function odstranCarky(){
+    
+    for (i = 0; i < vysl.length; i++){
+        prijem = vysl[i].split("");
+        if (prijem[0] == ",") {} else {vystup += prijem[0];};
+    };
+return vystup;
+};
+function s2u3(vstup) {
+    inp=vstup.split(/\r\n|\r|\n/g);
+    r=inp[0].split("");
+    strom=[];
+    pavouci=1;
+    znak="";
+    nactiPavouka();
+    pointer = 0;
+    pavouk = 1;
+    zasobnik = [];
+    vysl="";
+    vystup="";
+    potomciPavouka(1, 0);
+    return vysl;
+};
+function startnode(){
+    var fs = require("fs");
+    fs.writeFile("/temp/out.out", s2u3(fs.readFileSync("/temp/input.in").toString()));
+};
+function novyObdelnik(zx, kx, zy, ky){
+    if(typeof(displej[zy]) == "number") {
+        var pointer = displej[zy];
+        displej[zy] = [displej[pointer],[zx, kx]];
+        for(i = zy+1; i <= ky; i++) {displej[i] = zy;};
+        } else {
+        if(typeof(displej[zy]) == "undefined") {displej[zy] = [zx,kx]} 
+        else {
+        displej[zy] += [zx, kx];}
+        for(i = zy+1; i <= ky; i++) {displej[i] = zy}
+        };
+};
+var displej = [];
+function Comparator(a, b) {
+   if (a[1] < b[1]) return -1;
+   if (a[1] > b[1]) return 1;
+   return 0;
+ };
+function spocitejBody(pole) {
+    var j = 0;
+    var pole = JSON.parse("[" + pole + "]");
+    for(i = 0; i < pole.length; i++){
+        j += pole[i+1] - pole[i] + 1;
+        i++
+        };
+    return j;
+};
+
+function s2u4(vstup) {
+    var inp = vstup.split(/\r\n|\r|\n/g);
+    var r = inp[0].split(" ");
+    var x = r[0];
+    var y = r[1];
+    var n = r[2];
+    var obdelnik = []; 
+    var i = 0;
+    var j = 0;
+    var pixely = 0;
+    var cislo = 0;
+    for(i = 1; i <= n; i++) {
+        obdelnik = inp[i].split(" ");
+        var zx = parseInt(obdelnik[0]);
+        var kx = parseInt(obdelnik[2]);
+        var zy = parseInt(obdelnik[1]);
+        var ky = parseInt(obdelnik[3]);
+        novyObdelnik(zx, kx, zy, ky);
+    };
+    for(i = 0; i < displej.length; i++){
+        if(typeof(displej[i]) == "object") {displej[i].sort(Comparator);} else {};
+    };
+    for(i = 0; i < displej.length; i++){
+        if(typeof(displej[i]) !== "object") {} else 
+        if(typeof(displej[i][0]) == "object" && typeof(displej[i][1]) == "object") {
+            predj = 1;
+            for(j = 1; j <= displej[i].length; j++) {
+                if(displej[i][predj][0] > displej[i][predj-1][1]) {} else {
+                    displej[i][j-1][1] = displej[i][j][1];
+                    displej[i].splice(1,1);
+                    predj++;
+                };
+            };
+        };
+    };
+    for(i = 0; i < displej.length; i++){
+        if(typeof(displej[i]) == "undefined") {} else
+        if(typeof(displej[i]) == "number") {cislo = displej[i]; pixely += displej[cislo];} else
+        if(typeof(displej[i]) == "object") { 
+                displej[i] = displej[i].toString();
+                cislo = spocitejBody(displej[i])
+                displej[i] = cislo;
+                pixely += displej[i];
+        };
+    };
+    return pixely+1;
+};
+function s3u1(vstup) {
+    var inp = vstup.split(/\r\n|\r|\n/g);
+    var produktivita = inp[1].split(" ");
+    var vysl = "";
+    for(var i = 0; i < produktivita.length;i++) produktivita[i] = +produktivita[i];
+    
+    var nejv = produktivita[0];
+    var nejm = produktivita[0];
+    
+    for(i = 0; i < produktivita.length; i++) {
+        if(nejv < produktivita[i]) {nejv = produktivita[i]};
+        if(nejm > produktivita[i]) {nejm = produktivita[i]};
+
+    };
+
+    vysl += produktivita.indexOf(nejv)+" ";
+    vysl += produktivita.indexOf(nejm);
+
+    return vysl;
+};
+function s3u2(vstup) {
+    var inp = vstup.split(/\r\n|\r|\n/g);
+    var n = parseInt(inp[0]);
+    var radek = inp[1].split("");                     //vstupni palindrom v poli
+    var pocet=0;                            //pocet kroku potrebnych k dokonceni
+    var z = "";                             //pismeno na zacatku
+    var k = "";                             //pismeno na konci
+    var urychleni = parseInt(n/2);
+    
+    for(var i = 0; i <= urychleni; i++) {
+        z=radek[i];
+        k=radek[n-i-1];
+        
+        if(z !== k) {
+            radek[i] = k;
+            pocet++;
+         };
+    };
+    return pocet + "\n" + radek.join("");
+};
+function predznak(cislo) {
+    var pA = 0;                                         //pocet A
+    var pB = 0;                                         //pocet B
+    
+    var a = postele[cislo-2];
+    if(a == "A") {pA++;} else                           //pokud a v ab je "A", tak zvys pa 
+    if(a == "B") {pB++;};                               //      a v ab je "B", tak zvys pb        
+    
+    var b = postele[cislo-1];                           //pokud b v ab je "A", tak zvys pa 
+    if(b == "A") {pA++;} else                           //      b v ab je "B", tak zvys pb        
+    if(b == "B") {pB++;};
+
+    if(pA == 2) {return "B"} else                       //rozhodni se, zda posles "B", "A", nebo "co chces"
+    if(pB == 2) {return "A"} else
+    {return "0"};
+};
+function poznak(cislo) {
+    var pA = 0;                                         //pocet A
+    var pB = 0;                                         //pocet B
+    var p0 = 0;
+
+    var a = postele[cislo+1];
+    if(a == "A") {pA++;} else                           //pokud a v ab je "A", tak zvys pa 
+    if(a == "B") {pB++;} else                           //      a v ab je "B", tak zvys pb        
+    if(a == "0") {p0++;};                               //      a v ab je "0", tak zvys p0
+
+    var b = postele[cislo+2];                           //pokud b v ab je "A", tak zvys pa 
+    if(b == "A") {pA++;} else                           //      b v ab je "B", tak zvys pb        
+    if(b == "B") {pB++;} else
+    if(b == "0") {p0++;};                               //      b v ab je "0", tak zvys p0
+
+    if(pA == 2) {return "B"} else                       //rozhodni se, zda posles "B", "A", nebo "co chces"
+    if(pB == 2) {return "A"} else                       //podud mame 2 B, chceme A
+    if(pred == "0" && pA == 1 && pB == 1) {return b} else       //pokud si muzu vybrat, zvolim b z xx0ab
+    if(p0 == 2 && pred == "0") {return "A"} else                //pokud si muzu vybrat podle zacatku, a mam xx000, zvolim A
+    if(pred == "0" && a == "A") {return "B"} else               //pokud si muzu vybrat podle zacatku, zvolim b z xx0ab
+    if(pred == "0" && a == "B") {return "A"} else
+    if(pred == "0" && b == "B") {return "B"} else
+    if(pred == "0" && b == "A") {return "A"} else
+    {return "0"};
+};
+
+var postele = [];                                           //pole pro postele
+var pred = "";
+
+function foo(j){
+    pred = predznak(j);
+    var po = poznak(j);
+    if(pred == "0" && po == "0") {postele[j] = "A"} else        //funkce, ktera urci, kdo se ma dat na postel
+    if(pred == "A" && po == "A") {postele[j] = "A";} else
+    if(pred == "B" && po == "B") {postele[j] = "B";} else
+    if(pred == "0" && po == "A") {postele[j] = "A";} else
+    if(pred == "0" && po == "B") {postele[j] = "B";} else
+    if(pred == "A" && po == "0") {postele[j] = "A";} else
+    if(pred == "B" && po == "0") {postele[j] = "B";} else
+    if(pred == "A" && po == "B") {return "NEEXISTUJE"} else
+    if(pred == "B" && po == "A") {return "NEEXISTUJE"};
+
+ 
+};
+
+function s3u4(vstup) {
+    var inp = vstup.split(/\r\n|\r|\n/g);                   //vstup
+    var znak="";
+    var pred = "";
+    var po = "";
+    var i = 0;        
+    var vysledek = "";
+
+    inp = inp[0].split("");                                 //splitnu vstup do pole vstup
+    for(i = 0; i < inp.length; i++) {                       //vlozim vstup do pole a doplnim 0 misto _
+        if(inp[i] === "_") {postele[i] = "0"} else (postele[i] = inp[i]);
+    };
+
+    for(i = 0; i < postele.length; i++) {
+        znak = postele[i];
+        if(znak == "0") {
+            foo(i);
+        };                                              //opravit - na konci se objevuji 0
+    };
+    var vysledek = postele.join("");
+    return vysledek;
+};
+var bludiste = [];                                  //pole pro bludiste
+var dolary = 0;                                     //pocet dolaru
+var klice = [];                                     //pole pro klice
+var posunuti = 0;                                   //jak dlouho jsem se neposunul
+var pozice = [];                                    //misti kde jsem v minulem kole prestal(v urcite chodbe)
+
+function projdichodbu(chodba, cisloch) {                            //funkce na prochazeni jedne chodby
+    var znak = "";
+    for (i = pozice[cisloch]+1; i < chodba.length+1; i++) {         //pro kazny znak v chodbe
+        znak = parseInt(chodba[i]);
+        if(i == chodba.length) {posunuti++; break};                 //IF loop pro pocitani konce
+        if (znak == 0) {                                            //pokud dolar tak...
+            dolary++;
+            pozice[cisloch] = i;
+            posunuti = 0;
+        } else  if (znak < 0) {                                     //pokud klic tak...
+            klice[-znak] = -1;
+            pozice[cisloch] = i;
+            posunuti = 0;
+        } else {                                                    //pokud dvere tak...
+            if (klice[znak] == -1) {pozice[cisloch] = i; posunuti = 0;} else  //pokud mam klic
+            {posunuti++; break};                                              //pokud klic neni -> nemuzeme dal
+        };
+    };
+    
+};
+
+function horst(vstup) {
+    var inp = vstup.split(/\r\n|\r|\n/g);
+    var n = inp[0];
+    var hrnce = inp[1];
+    var pocetkominku = 0;
+    var kominky = [];
+
+    
+};
+function s3u3(vstup) {
+    var inp = vstup.split(/\r\n|\r|\n/g);
+    var pradek = inp[0].split(" ");                     //prvni radek
+    var c = pradek[0];                                  //cislo C
+    var radek = [];
+    var i = 0;                                          
+    bludiste = [];                                      //nulovani promennych |
+    dolary = 0;                                         //                    v
+    klice = [];                                         //
+    pounuti = 0;                                        //                    
+    pozice = [];                                        //nulovani promennych
+
+    for( var i = 0; i < c; i++) {                       //ulozim do pole bludiste[i] plan chodby
+        radek = inp[i+1].split(" ");                    //a do pole pozice[i] -1(zatim se v chodbe neposunuli)
+        radek.shift();
+        bludiste[i] = radek
+        pozice[i] = -1;
+    };
+    
+    var i = 0;
+    
+    while (posunuti < c) {
+        projdichodbu(bludiste[i], i);                     //funkci projdichodbu poslu jednu chodbu a cislo chodby, ktera to je
+        i++;
+        if(i >= c) { i = 0; };                            //opakuji dokud se nemuzu projit nikde
+
+    };                                                 
+    return dolary;
+};
+</script>
+<p id="vysledek"></p>
+</body>
+</html>
