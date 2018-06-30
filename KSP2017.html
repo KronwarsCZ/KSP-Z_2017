@@ -6,18 +6,21 @@
     <form>
     <p>Zvolte úlohu, vyberte soubor a stiskněte Spusti</p><br>
     <select name="Ulohy" id="ulohy">
-	 <option value="s1u1">S1U1 Kevinova nepatnactka</option>
-     <option value="s1u2">S1U2 Sariny loutky</option>
-     <option value="s1u3">S1U3 Petrovo lusteni zpravy</option>
-     <option value="s1u4">S1U4 Vedouci</option>
-     <option value="s2u1">S2U1 Koktavy Kevin</option>
-     <option value="s2u2">S2U2 Hriste pro tarantule</option>
-     <option value="s2u3">S2U3 Klonovani tarantuli</option>
-     <option value="s2u4">S2U4 Bily displej</option>
-     <option value="s3u1">S3U1 Produktivita</option>
-     <option value="s3u2">S3U2 Palindromy</option>
-     <option value="s3u3">S3U3 Týmbildink</option>
-     <option value="s3u4">S3U4 Postele</option>
+    <option value="s4u3">S4U3 Buldozer</option>
+    <option value="s4u4">S4U4 Zahrádka</option>
+    <option value="s1u1">S1U1 Kevinova nepatnactka</option>
+    <option value="s1u2">S1U2 Sariny loutky</option>
+    <option value="s1u3">S1U3 Petrovo lusteni zpravy</option>
+    <option value="s1u4">S1U4 Vedouci</option>
+    <option value="s2u1">S2U1 Koktavy Kevin</option>
+    <option value="s2u2">S2U2 Hriste pro tarantule</option>
+    <option value="s2u3">S2U3 Klonovani tarantuli</option>
+    <option value="s2u4">S2U4 Bily displej</option>
+    <option value="s3u1">S3U1 Produktivita</option>
+    <option value="s3u2">S3U2 Palindromy</option>
+    <option value="s3u3">S3U3 Týmbildink</option>
+    <option value="s3u4">S3U4 Postele</option>
+    <option value="s4u1">S4U1 Sprint</option>
     </select>
         <input type="file" id="files" name="file" /><br>
         <input type="button" value="Spusti" onclick="spusti();" />
@@ -47,14 +50,14 @@ function spusti() {
 function gebid(id) {
   return document.getElementById(id);
 };
-
+var casomirazacatek = 0;
 function main(vstup){
   var uloha=document.getElementById('ulohy').value;
- 
-  if (uloha == "s1u1") {
+  casomirazacatek = performance.now();
+if (uloha == "s1u1") {
 	return s1u1(vstup);
   };
-  if (uloha == "s1u2") {
+ if (uloha == "s1u2") {
 	return s1u2(vstup);
   };
 if (uloha == "s1u3") {
@@ -86,6 +89,15 @@ if (uloha == "s3u4") {
     };
 if (uloha == "s3u3") {
     return s3u3(vstup);
+    };
+if (uloha == "s4u1") {
+    return s4u1(vstup);
+    };
+if (uloha == "s4u4") {
+    return s4u4(vstup);
+    };
+if (uloha == "s4u3") {
+    return s4u3(vstup);
     };
 };
 
@@ -127,6 +139,8 @@ function s1u1(vstup) {
 			if (x + 1 <= rozmery[0]) {x++};
 		} else alert("chybny znak v zadani");
 	};
+    var casomirakonec = performance.now();
+    alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
 	return x.toString() + " " + y.toString();
 };
 function s1u2(vstup) {
@@ -155,7 +169,9 @@ function s1u2(vstup) {
             vypis+=vysledek.toString() + ":" + loutky[konec].toString() + "<br>\n"; //
         }; 
     };
-	return vysledek;
+    var casomirakonec = performance.now();
+    alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+    return vysledek;
 };
 function s1u3(vstup) {
 
@@ -188,7 +204,9 @@ function s1u3(vstup) {
       Object.keys(statistika).forEach(najdiNejcastejsi,statistika);
       vysledek += maxpismeno;
     };
-  return vysledek;
+    var casomirakonec = performance.now();
+    alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+    return vysledek;
 };
 function s1u4(vstup){
     var r=vstup.split(/\r\n|\r|\n/g);
@@ -257,7 +275,9 @@ function s1u4(vstup){
             };
             vysledky += podrizeni + "\r\n";
         };
-        return vysledky;
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+return vysledky;
 };
 function s2u1(vstup){
     var radky=vstup.split(/\r\n|\r|\n/g);
@@ -287,8 +307,10 @@ function s2u1(vstup){
           };
           vystup += "\n"
       }; 
-    return vystup;
-    };
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+return vystup;
+};
 
 function najitDuplikat(pole) {                      //najde duplikaty v poli
     var objekt = {};
@@ -342,7 +364,9 @@ function s2u2(vstup) {
         if(duplikaty == true) {return i};
              
     };
-    return konec;
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+return konec;
 };
 
 
@@ -423,7 +447,9 @@ function s2u3(vstup) {
     vysl="";
     vystup="";
     potomciPavouka(1, 0);
-    return vysl;
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+return vysl;
 };
 function startnode(){
     var fs = require("fs");
@@ -502,7 +528,10 @@ function s2u4(vstup) {
                 pixely += displej[i];
         };
     };
-    return pixely+1;
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+
+return pixely+1;
 };
 function s3u1(vstup) {
     var inp = vstup.split(/\r\n|\r|\n/g);
@@ -522,7 +551,10 @@ function s3u1(vstup) {
     vysl += produktivita.indexOf(nejv)+" ";
     vysl += produktivita.indexOf(nejm);
 
-    return vysl;
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+
+return vysl;
 };
 function s3u2(vstup) {
     var inp = vstup.split(/\r\n|\r|\n/g);
@@ -542,7 +574,10 @@ function s3u2(vstup) {
             pocet++;
          };
     };
-    return pocet + "\n" + radek.join("");
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+
+return pocet + "\n" + radek.join("");
 };
 function predznak(cislo) {
     var pA = 0;                                         //pocet A
@@ -624,8 +659,11 @@ function s3u4(vstup) {
             foo(i);
         };                                              //opravit - na konci se objevuji 0
     };
-    var vysledek = postele.join("");
-    return vysledek;
+var vysledek = postele.join("");
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+
+return vysledek;
 };
 var bludiste = [];                                  //pole pro bludiste
 var dolary = 0;                                     //pocet dolaru
@@ -654,15 +692,6 @@ function projdichodbu(chodba, cisloch) {                            //funkce na 
     
 };
 
-function horst(vstup) {
-    var inp = vstup.split(/\r\n|\r|\n/g);
-    var n = inp[0];
-    var hrnce = inp[1];
-    var pocetkominku = 0;
-    var kominky = [];
-
-    
-};
 function s3u3(vstup) {
     var inp = vstup.split(/\r\n|\r|\n/g);
     var pradek = inp[0].split(" ");                     //prvni radek
@@ -690,9 +719,156 @@ function s3u3(vstup) {
         if(i >= c) { i = 0; };                            //opakuji dokud se nemuzu projit nikde
 
     };                                                 
-    return dolary;
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+
+return dolary;
+};
+function s4u1(vstup) {
+    
+    var inp = vstup.split(/\r\n|\r|\n/g);
+    var pradek = inp[0].split(" ");
+    var n = parseInt(pradek[0]);
+    var k = parseInt(pradek[1]);
+    var bezci = inp[1].split(" ");
+
+    var nejlepsi = 0;                                   //index zacatecnika nejlepsi K-tice
+    var soucet = 0;                                     //soucet casu K-tice
+    var nejsoucet = 0;                                  //soucet casu nejlepsi K-tice
+    var i = 0;
+
+    for(i = 0; i < k; i++) {                            //sectu prvni K-tici
+        soucet += parseInt(bezci[i])
+    };
+    nejsoucet = soucet;                                 //nastavime prvni K-tici jako nejlepsi
+
+    for(;i < n; i++) {                                  //pro kazdeho dalsiho bezce spocteme cas K-tice
+        soucet += parseInt(bezci[i]);
+        soucet -= parseInt(bezci[i-k]);
+
+        if(soucet < nejsoucet) {                        //pokud je lepsi tak si ho ulozime
+            nejsoucet = soucet;
+            nejlepsi = i-k+1
+        };
+
+    };
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+
+return nejlepsi;
+};
+function s4u4(vstup) {
+    var inp = vstup.split(/\r\n|\r|\n/g);
+    var pradek = inp[0].split(" ");
+    var xp = parseInt(pradek[0]);
+    var yp = parseInt(pradek[1]);
+    var q = BigInt(pradek[2]);
+    var nejlepsiq = BigInt(0)                               //v google chrome je knihovna BigInt, ktera umoznuje pocitat s 64 bit cisly
+    var aktq = BigInt(0);                                   //pouziti: BigInt(variable) nebo var variable = 123n
+
+    var xsour = inp[1].split(" ");
+    xsour.forEach(function(x,y,z){ z[y]=parseInt(x) });
+    xsour.sort();
+    
+    var ysour = inp[2].split(" ");
+    ysour.forEach(function(x,y,z){ z[y]=parseInt(x) });
+    ysour.sort();
+
+    var x=0;                                                //indexy aktuálních souřadnic
+    var y=yp-1;
+
+    while( x < xp && y > 0 ) {                              //dokud mame dvojice, tak
+    aktq=BigInt(xsour[x])*BigInt(ysour[y]);                                 //urcime jejich obsah
+    if (aktq > q) {                                         //pokud jsme presahli, tak jdeme po ose Y dolu
+        y--;
+    } else if(aktq < q){                                    //pokud jsme nepsresahli
+        if( aktq > nejlepsiq ) {nejlepsiq = aktq};          //a pokud je to nejlepsi tak ulozime
+        x++;                                                //a jdeme po ose X doprava
+    } else {return q};                                      //nasli jsme optimalni reseni
+    };
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+    
+return nejlepsiq;
+};
+function vejdesevalec(x, y) {                               //funkce na kontrolu, zda-li se valec vejde
+   for(var i = -1; i <= 1; i++){                            //pro 3 radky
+       var s=r[y+i].substr(x-1,3);                          //nacti 3 znaky
+       if (s.indexOf("X") != -1 ) return false;             //a pokud je alespon jeden X, tak zde neni misto, jinak je zde misto
+   }; 
+   return true;
+    
+};
+function setCharAt(str,index,chr) {                             //funkce na vymenu pismenka ve stringu, ktery je ulozeny v array
+    if(index > str.length-1) return str;
+    return str.substr(0,index) + chr + str.substr(index+1);
+};
+function valcuj(x, y) {                                         //funkce na valcovani okoli 
+   var vysledek = false;                                        //kontrolni vysledek
+   for(var i = -1; i <= 1; i++){                                //pro 3 radky
+       for(var j = -1; j <=1; j++){                             //a v nich 3 znaky
+        if (r[y+j].charAt(x+i) == "O") {                        //proslapej volna neproslapla mista
+        vysledek = true;                                        //zmen kontrolni vysledek a pocet
+        pocet++;
+        r[y+j] = setCharAt(r[y+j],x+i,".");                     //nastav misto na proslapnuto
+        };
+       };
+   };
+   r[y] = setCharAt(r[y],x,"+");                                //nastav stred jako +, kvuli kontrole opakovani
+   return true;   
+};  
+function pridejdofronty(x,y) {                                  //funkce na pridavani do X a Y fronty
+    if (r[y].charAt(x) != "+") {                                //ochrana pred opakovanim
+        frontax.push(x);
+        frontay.push(y);
+    };
+};
+
+function proslapni() {                                          //funkce na proslapavani poli
+ while( frontax.length > 0 ){                                   //opakuje se dokud je neco ve fronte
+    var x = frontax.shift();                                    //nactu z fronty
+    var y = frontay.shift();                                    
+    if (r[y].charAt(x) != "+" && vejdesevalec(x,y)) {           //pokud se valec vejde a jeste jsem okoli nevalcoval(znaceno pismenkem +)
+        if(valcuj(x,y)){                                        //zacni valcovat okoli
+            if (x<sirka-2) pridejdofronty(x+1,y);               //pridej 4 dalsi mozna mista pro valcovani do fronty
+            if (y<vyska-2) pridejdofronty(x,y+1);
+            if (x>1) pridejdofronty(x-1,y);
+            if (y>1) pridejdofronty(x,y-1);
+        };
+    };
+ };
+};
+var pocet = 0;
+var r = [];
+var sirka = 0;
+var vyska = 0;
+var frontax = [];
+var frontay = [];
+
+function s4u3(vstup) {
+
+    r=vstup.split(/\r\n|\r|\n/g);                       //nactu vstup
+    var rozmery=r[0].split(" ");
+    vyska=parseInt(rozmery[0]);
+    sirka=parseInt(rozmery[1]);
+    pocet = 0;
+    frontax = [];                                       //fronta pro X
+    frontay = [];                                       //fronta pro Y
+    
+    r.shift();                                          //z r odstranim prvni radek
+    pridejdofronty(1,1);                                //pridam do fronty zacatecni bod
+    proslapni();                                        //spustim cyklus
+
+var casomirakonec = performance.now();
+alert("Zabralo to " + (casomirakonec - casomirazacatek) + "milisekund.");
+
+//gebid("vysledek").innerText=r.join("\n");
+return pocet;
 };
 </script>
-<p id="vysledek"></p>
+<p style="font-family: monospace">
+Tady bude ladící výpis
+</p>
+<p id="vysledek" style="font-family: monospace"></p>
 </body>
 </html>

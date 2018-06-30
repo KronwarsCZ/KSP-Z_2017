@@ -1,0 +1,18 @@
+30-Z4-6
+-----------
+Vyrobím si 2 pointery A a B, pointer A bude odkazovat na písmenko vstupu s indexem 0 a pointer B bude odkazovat na písmenko vstupu s indexem 
+A + k, následně vytvořím  proměnné (pocetopakpismen, nejvicopak, indexopak) = 0.
+
+Vytvořím cyklus, který mi bude procházet všechna písmenka na vstupu:
+Zkontroluji písmenka na místech značených pointery A a B a mohou nastat 2 situace: 
+a) písmenka se shodují, zvětším si proměnnou pocetopakpismen o 1.
+b) písmenka se neshodují, vypočtu počet opakování jako podíl pocetopakpismen // k (vrací celočíselný podíl) a vynuluji pocetopakpismen. Pokud podíl > nejvicopak, tak podíl uložím do nejvicopak a do proměnné indexopak uložím hodnotu A - k + 1. (A - k + 1 bude index prvního písmenka opakujících se nadávek).
+Zvětším hodnotu pointeru A o 1 a aktualizuji pointer B.
+Nakonec pokud už neexistuje písmenko na které odkazuje pointer B skončím cyklus, jinak opakuji cyklus.
+
+Až skončím tento cyklus tak mám v proměnné indexopak index písmenka na vstupu, kde nadávka začíná a stačí mi na výstup vypsat k - 1 hodnot od tohoto indexu(včetně počátečního).
+
+Tento algoritmus bude fungovat, jelikož procházím každý prvek pole a kontroluji, jestli "aktuální" nadávka a "následující" nadávka obsahuje stejná písmenka ve stejném pořadí. Pokud ano, zjistím kolikrát za sebou se opakují a zapamatuji si to, jestli ne tak pokračuji v procházení. Nakonec vypíšu tu nadávku, která se nejvíce opakuje.
+
+Časová složitost -> O(n), kde n je počet písmen, protože procházím každý prvek pole jednou.
+Paměťová složitost -> pamatuju si celkem 5 číselných proměnných a výstup o délce k.

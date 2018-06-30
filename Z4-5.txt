@@ -1,0 +1,11 @@
+30-Z4-5
+--------------------
+Řekněme, že počet stromů je S a počet jablek je J.
+Nejdříve si seřadím pole stromů například pomocí Quicksortu -> časová složitost O(S * log S).
+Následně budu pro každé jablko hledat pomocí algoritmu na půlení intervalů(binární vyhledávání) jeho nejbližší strom z pole stromů. Až bude mít interval 2 hodnoty, najdu ten bližší strom k danému jablku a na výstup vypíšu absolutní hodnotu vzdálenosti jablka od tohoto stromu. -> časová složitost O(J * log S).
+Tímto dostanu na výstupu vzdálenosti všech jablek v jejich původním pořadí od jejich nejbližších stromů.
+
+Časová složitost -> O((J+S) * log S), kde S je počet stromů a J počet jablek.
+Paměťová složitost -> pamatuji si pouze výstup, který je o velikosti J.
+
+Pokud bude jablek bude velmi málo tzn. méňe než log(S) tak si pro každé jablko zjistím, zda je daný strom blíž k jablku než ostatní stromy, v tomto případě změním výstup. Časová složitost bude maximálně O(S * log S). Bude to rychlejší hlavně kvůli tomu, že nemusím třídit tak velké pole stromů (které trvá O(S * log S)).
